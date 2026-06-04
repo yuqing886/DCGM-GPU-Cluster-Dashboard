@@ -2,256 +2,99 @@
 
 [English](README.en.md) | 简体中文
 
----
+基于 **DCGM Exporter + Prometheus + Grafana** 的 NVIDIA GPU 集群监控仪表盘。
 
-# 🚀 项目简介
+适用于：
 
-一个面向 **AI / HPC GPU 集群** 的 NVIDIA DCGM Grafana 仪表盘。
-
-基于：
-
-* NVIDIA DCGM Exporter
-* Prometheus
-* Grafana
-
-构建，专为：
-
-* 大模型训练（LLM Training）
-* 大模型推理（LLM Inference）
+* AI 训练集群
+* 大模型训练
+* 大模型推理
 * Kubernetes GPU 集群
 * Slurm GPU 集群
 * HPC 集群
 
-设计。
-
-相比官方 Dashboard，本项目更偏向 **GPU 集群运维与资源运营**。
-
 ---
 
-# 📸 Dashboard 预览
+## 仪表盘预览
 
-## 集群总览
+### 集群总览
 
 ![Cluster Overview](screenshots/overview.png)
 
----
-
-## GPU 实时总览
+### GPU 实时总览
 
 ![Cluster Table](screenshots/cluster_table.png)
 
----
-
-## 性能分析
-
-![Performance](screenshots/performance.png)
-
----
-
-## 显存分析
-
-![Memory](screenshots/memory.png)
-
----
-
-## 功耗与温度分析
-
-![Thermal](screenshots/thermal.png)
-
----
-
-## 硬件健康
-
-![Health](screenshots/health.png)
-
----
-
-## 异常中心
+### 异常中心
 
 ![Alert Center](screenshots/alerts.png)
 
 ---
 
-# ✨ 功能特性
+## 功能特性
 
-## 集群总览
+| 集群总览    | 性能分析             | 健康监控          |
+| ------- | ---------------- | ------------- |
+| GPU 利用率 | Tensor Core 利用率  | XID 错误        |
+| 显存利用率   | GR Engine Active | ECC 监控        |
+| GPU 温度  | GPU 排行榜          | Remapped Rows |
+| GPU 功耗  | Tensor 排行榜       | 异常时间线         |
 
-实时展示：
-
-* GPU 平均利用率
-* GPU 平均温度
-* GPU 平均功耗
-* GPU 平均显存利用率
-* 活跃 GPU 数量
-* 高温 GPU 数量
-* 高显存 GPU 数量
-* XID 异常 GPU 数量
-
----
-
-## GPU 资产管理
-
-实时 GPU 资产表：
-
-* Instance
-* Hostname
-* GPU Index
-* UUID
-* GPU Model
-* Driver Version
-* PCI Bus ID
-
-以及：
-
-* GPU Util %
-* Memory Util %
-* Tensor Util %
-* Power Usage
-* GPU Temperature
-
-支持：
-
-* 排序
-* 搜索
-* 过滤
-* 多集群查询
+| 异常中心   | 数据分析          | 资产管理       |
+| ------ | ------------- | ---------- |
+| 异常 GPU | 显存分析          | GPU UUID   |
+| 风险排行   | 温度分析          | GPU 型号     |
+| 热点 GPU | PCIe / NVLink | 驱动版本       |
+| OOM 检测 | 功耗分析          | PCI Bus ID |
 
 ---
 
-## 性能分析
+## 核心亮点
 
-支持：
-
-* GPU Utilization Trend
-* Tensor Core Utilization
-* GR Engine Active
-* Top GPU Ranking
-* Top Tensor Ranking
-
-适用于：
-
-* PyTorch
-* TensorFlow
-* DeepSpeed
-* Megatron-LM
-* vLLM
-* TensorRT
+* 🚀 GPU 集群总览
+* 📊 GPU / 显存 / Tensor 监控
+* 🔥 功耗与温度分析
+* ❤️ GPU 健康监控
+* ⚠️ 智能异常中心
+* 🏆 GPU 风险排行
+* 🔍 GPU 资产管理
+* 🌐 多节点集群支持
 
 ---
 
-## 显存分析
+## 兼容性
 
-显存利用率采用：
-
-FB_USED / (FB_USED + FB_FREE)
-
-计算。
-
-无需依赖：
-
-* DCGM_FI_DEV_FB_TOTAL
-
-兼容更多 DCGM 环境。
-
----
-
-## 功耗与温度
-
-GPU 温度阈值：
-
-| 温度   | 状态   |
-| ---- | ---- |
-| <80℃ | 正常   |
-| ≥80℃ | 警告   |
-| ≥85℃ | 高风险  |
-| ≥90℃ | 严重告警 |
-
----
-
-## 硬件健康
-
-支持：
-
-* XID 错误监控
-* ECC 错误监控
-* Remapped Rows
-* PCIe 异常监控
-
----
-
-## 异常中心
-
-重点关注：
-
-* 高温 GPU
-* 高显存 GPU
-* XID 异常 GPU
-* 风险排行榜
-* 历史异常趋势
-
-帮助运维快速定位问题。
-
----
-
-# 🎯 项目优势
-
-### 集群优先设计
-
-适用于：
-
-* GPU Cluster
-* Kubernetes GPU
-* Slurm GPU
-* AI Platform
-
----
-
-### 高兼容性
-
-支持：
-
-* DCGM 4.x
-* Grafana 11+
-* Grafana 12+
-* Grafana 13+
-* Prometheus 2.x+
-
----
-
-### 运维友好
-
-快速回答：
-
-* 哪张 GPU 正在工作？
-* 哪张 GPU 即将 OOM？
-* 哪张 GPU 温度过高？
-* 哪张 GPU 存在 XID？
-* 哪张 GPU 风险最高？
-
----
-
-# 🛠 环境要求
+| 组件         | 版本   |
+| ---------- | ---- |
+| DCGM       | 4.x  |
+| Prometheus | 2.x+ |
+| Grafana    | 11+  |
 
 推荐版本：
 
-* nvidia/dcgm:4.5.2-1-ubuntu22.04
-* grafana/grafana:13.x
-* prometheus:2.x
+```yaml
+nvidia/dcgm:4.5.2-1-ubuntu22.04
+grafana/grafana:13.x
+```
 
 ---
 
-# 📦 安装
+## 安装说明
 
 1. 部署 DCGM Exporter
 2. 配置 Prometheus 抓取
 3. 导入 Dashboard JSON
 4. 选择 Prometheus 数据源
 
-即可开始监控 GPU 集群。
+Dashboard 文件：
+
+```text
+dashboards/dcgm_gpu_cluster_dashboard.json
+```
 
 ---
 
-# 📄 License
+## 开源协议
 
 Apache-2.0 License
 
