@@ -68,7 +68,7 @@
 | ---------- | ---- |
 | DCGM       | 4.x  |
 | Prometheus | 2.x+ |
-| Grafana    | 11+  |
+| Grafana    | 13.x |
 
 推荐版本：
 
